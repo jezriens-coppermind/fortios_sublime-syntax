@@ -16,27 +16,32 @@ contexts:
   - match: \b(edit|next)\b
     scope: entity.name.function.fortios
 
-  - match: \b(system|firewall|log|gui-dashboard|widget|filter|free-style|cluster-peer|endpoint-control)\b
+  - match: \b(system|firewall|log|endpoint-control|switch-controller|vpn|webfilter|ips|web-proxy|application|dlp|icap|user|voip|dnsfilter|antivirus|file-filter|emailfilter|waf|wireless-controller|router)\b
     scope: variable.annotation.java
 
   - match: \b(set)\b
     scope: constant.numeric.integer.long.octal.fortios
 
   - match: "\\b((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))([/]\\d{1,2})?\\b"
-    scope: constant.numeric.integer.long.octal.fortios
+    scope: constant.character.escape
 
   - match: "(?:(\\b))([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})([/]\\d{1,2})?\\b"
-    scope: constant.numeric.integer.long.octal.fortios
+    scope: constant.character.escape
 
   - match: "(?<!term )(?<=\\s)(\\d+)(?=[;]|\\s)"
-    scope: constant.numeric.integer.long.octal.fortios
+    scope: constant.character.escape
+
+  - match: \b(enable)\b
+    scope: string.quoted.double.fortios
+  - match: \b(disable)\b
+    scope: markup.deleted
 
   - match: '"'
     push: string
 
   string:
-    - meta_scope: string.quoted.double.fortios
+    - meta_scope: constant.character.escape
     - match: \\.
-      scope: constant.character.escape.fortios
+      scope: constant.other.fortios
     - match: '"'
       pop: true

@@ -6,20 +6,31 @@ scope: source.conf
 
 contexts:
   main:
-  - name: Any comment
+  - name: any commented line
     match: (^|^\\s|\\s)(#).*$\n?
     scope: punctuation.definition.comment.fortios
 
-  - match: \b(config|end)\b
+  - name: config and end sections
+    match: \b(config|end)\b
     scope: keyword.control.fortios
 
-  - match: \b(edit|next)\b
+  - name: troubleshooting commands
+    match: \b(diagnose|execute|get)\b
+    scope: keyword.control.fortios
+
+  - name: edit and next sections
+    match: \b(edit|next)\b
     scope: entity.name.function.fortios
 
-  - match: \b(system|firewall|log|endpoint-control|switch-controller|vpn|webfilter|ips|web-proxy|application|dlp|icap|user|voip|dnsfilter|antivirus|file-filter|emailfilter|waf|wireless-controller|router)\b
+  - name: configuration variables
+    match: \b(system|firewall|log|endpoint-control|switch-controller|vpn|webfilter|ips|web-proxy|application|dlp|icap|user|voip|dnsfilter|antivirus|file-filter|emailfilter|waf|wireless-controller|router)\b
     scope: variable.annotation.java
 
-  - match: \b(set)\b
+  - name: troubleshooting variables
+    match: \b(debug|sys|test|hardware|sniffer|dvm|ip|ipsec)\b
+    scope: variable.annotation.java
+
+  - match: \b(set|any)\b
     scope: constant.numeric.integer.long.octal.fortios
 
   - match: "\\b((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))([/]\\d{1,2})?\\b"
@@ -33,6 +44,7 @@ contexts:
 
   - match: \b(enable)\b
     scope: string.quoted.double.fortios
+    
   - match: \b(disable)\b
     scope: markup.deleted
 
